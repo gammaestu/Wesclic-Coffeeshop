@@ -1,59 +1,99 @@
-﻿Panduan Setup Project Laravel
-Persyaratan
+﻿# Setup Project Laravel
+
+Dokumen ini berisi panduan instalasi dan menjalankan project Laravel di lingkungan lokal.
+
+---
+
+## Persyaratan
 
 Pastikan sudah terinstall:
 
-PHP
+- PHP
+- Composer
+- Node.js & NPM
+- Database (MySQL / MariaDB / dll)
 
-Composer
+---
 
-Node.js & NPM
+## Instalasi & Setup
 
-Database (MySQL / dll)
+### 1. Install Dependency
 
-Instalasi & Setup
+Jalankan perintah berikut di terminal pada folder project:
+
+```bash
 composer install
 npm install
+```
 
+---
 
-Copy file environment:
+### 2. Copy File Environment
 
+Copy file `.env.example` menjadi `.env`:
+
+```bash
 cp .env.example .env
+```
 
+Lalu edit file `.env` dan sesuaikan konfigurasi database:
 
-Edit file .env dan sesuaikan konfigurasi database:
-
+```env
 DB_DATABASE=nama_database
 DB_USERNAME=username
 DB_PASSWORD=password
+```
 
+---
 
-Generate application key:
+### 3. Generate Application Key
 
+```bash
 php artisan key:generate
+```
 
+---
 
-Migrasi dan seeding database:
+### 4. Migrasi dan Seeding Database
 
+```bash
 php artisan migrate:fresh --seed
+```
 
+---
 
-Buat symbolic link storage:
+### 5. Buat Symbolic Link Storage
 
+```bash
 php artisan storage:link
+```
 
-Menjalankan Project
+---
 
-Jalankan asset frontend:
+## Menjalankan Project
 
+### 1. Jalankan Asset Frontend
+
+```bash
 npm run dev
+```
 
+### 2. Jalankan Server Laravel
 
-Jalankan server Laravel:
-
+```bash
 php artisan serve
+```
 
+---
 
-Akses aplikasi di browser:
+## Akses Aplikasi
 
+Buka browser dan akses:
+
+```
 http://127.0.0.1:8000
+```
+
+---
+
+Project Laravel siap digunakan.

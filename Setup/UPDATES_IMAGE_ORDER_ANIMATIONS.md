@@ -95,4 +95,4 @@ Navbar sekarang punya link **Track Order** (desktop & mobile) ke `orders.status`
 | Order detail       | GET /orders/{order_code}  | OrderController@show         | pages.order-status                |
 | Upload gambar      | -                        | ImageService                 | Dipakai di MenuController         |
 
-Semua mengikuti pola Route → Controller → View dan Service/Repository yang sudah dipakai di project (design pattern tetap terjaga).
+Semua mengikuti pola Route → Controller → View dan Service/Repository yang sudah dipakai di project.

@@ -373,5 +373,3 @@ HTTP Response
 - Parameterized queries
 
 ---
-
-**Semua patterns ini diterapkan untuk memastikan code yang maintainable, testable, dan performant!**

@@ -232,5 +232,3 @@ Logo akan otomatis ditampilkan dari field `image` di database:
 5. **Maintainable**: Mudah di-edit dan di-customize
 
 ---
-
-**Semua logo siap digunakan dan terintegrasi dengan seeder!**

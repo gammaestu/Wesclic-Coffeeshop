@@ -285,4 +285,3 @@ Semua routes menggunakan named routes untuk kemudahan maintenance.
 
 ---
 
-**Struktur ini mengikuti Laravel best practices dan MVC pattern.**

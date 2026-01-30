@@ -205,5 +205,3 @@ $menuItems = [
 - Mobile browsers (iOS Safari, Chrome Mobile)
 
 ---
-
-**Created with ❤️ for Wesclic Coffee Shop**

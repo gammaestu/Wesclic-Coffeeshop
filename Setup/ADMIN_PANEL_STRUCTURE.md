@@ -283,5 +283,3 @@ php artisan db:seed --class=AdminSeeder
 ```
 
 ---
-
-**Admin panel siap digunakan dengan struktur yang rapi dan design minimalis!**

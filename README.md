@@ -17,7 +17,7 @@ Pastikan sudah terinstall:
 
 ## Instalasi & Setup
 
-### 1. Install Dependency
+### 1. Install Dependency Backend & Frontend
 
 Jalankan perintah berikut di terminal pada folder project:
 
@@ -36,7 +36,7 @@ Copy file `.env.example` menjadi `.env`:
 cp .env.example .env
 ```
 
-Lalu edit file `.env` dan sesuaikan konfigurasi database:
+Kemudian buka file `.env` dan sesuaikan konfigurasi database:
 
 ```env
 DB_DATABASE=nama_database

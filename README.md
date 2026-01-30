@@ -1,355 +1,59 @@
-﻿# Wesclic Coffee Shop
+﻿Panduan Setup Project Laravel
+Persyaratan
 
-Aplikasi web coffee shop berbasis Laravel untuk manajemen menu, pesanan, pelanggan, dan dashboard admin dengan grafik penjualan serta pendapatan.
+Pastikan sudah terinstall:
 
----
+PHP
 
-## ðŸ“‹ Persyaratan Sistem
+Composer
 
-Sebelum memulai, pastikan Anda telah menginstall:
+Node.js & NPM
 
-- **PHP** â‰¥ 8.2
-- **Composer** 2.x
-- **Node.js** â‰¥ 18 (untuk Vite & frontend)
-- **npm** atau **pnpm**
-- **Database**: SQLite (default) atau MySQL / MariaDB / PostgreSQL
+Database (MySQL / dll)
 
----
-
-## ðŸš€ Cara Setup Project
-
-### Langkah 1: Clone atau Unduh Project
-
-`ash
-git clone <url-repository> wesclic_coffeshop
-cd wesclic_coffeshop
-`
-
-### Langkah 2: Install Dependency PHP
-
-Install semua dependency PHP yang diperlukan:
-
-`ash
+Instalasi & Setup
 composer install
-`
-
-### Langkah 3: Install Dependency Frontend (Node.js)
-
-Install semua dependency frontend:
-
-`ash
 npm install
-`
 
-### Langkah 4: Setup File Environment
 
-Salin file contoh environment dan generate key aplikasi:
+Copy file environment:
 
-**Windows:**
-`ash
-copy .env.example .env
-`
-
-**Linux/macOS:**
-`ash
 cp .env.example .env
-`
+
+
+Edit file .env dan sesuaikan konfigurasi database:
+
+DB_DATABASE=nama_database
+DB_USERNAME=username
+DB_PASSWORD=password
+
 
 Generate application key:
-`ash
+
 php artisan key:generate
-`
 
-### Langkah 5: Konfigurasi Database
 
-Edit file .env dan sesuaikan konfigurasi database Anda.
+Migrasi dan seeding database:
 
-#### Opsi A â€“ SQLite (Paling Sederhana, Direkomendasikan untuk Development)
-
-1. Buat file database SQLite:
-
-   **Windows:**
-   `ash
-   type nul > database\database.sqlite
-   `
-
-   **Linux/macOS:**
-   `ash
-   touch database/database.sqlite
-   `
-
-2. Di file .env, pastikan konfigurasi seperti ini:
-   `env
-   DB_CONNECTION=sqlite
-   # DB_DATABASE bisa dikosongkan atau tetap database/database.sqlite
-   `
-
-#### Opsi B â€“ MySQL / MariaDB
-
-1. Buat database kosong di MySQL/MariaDB Anda.
-
-2. Di file .env, isi konfigurasi database:
-   `env
-   DB_CONNECTION=mysql
-   DB_HOST=127.0.0.1
-   DB_PORT=3306
-   DB_DATABASE=nama_database
-   DB_USERNAME=user_database
-   DB_PASSWORD=password_database
-   `
-
-### Langkah 6: Jalankan Migrasi Database
-
-Jalankan migrasi database dan seeder untuk mengisi data awal:
-
-`ash
 php artisan migrate:fresh --seed
-`
 
-**Catatan:** 
-- migrate:fresh akan menghapus semua tabel yang ada dan membuat ulang dari awal
-- --seed akan mengisi data awal seperti kategori, menu, dan user admin
 
-### Langkah 7: Buat Storage Link (Opsional)
+Buat symbolic link storage:
 
-Jika Anda menggunakan storage untuk upload file, buat symbolic link:
-
-`ash
 php artisan storage:link
-`
 
----
+Menjalankan Project
 
-## â–¶ï¸ Cara Menjalankan Project
+Jalankan asset frontend:
 
-### Development Mode (Dengan Hot Reload)
-
-Untuk development, Anda perlu menjalankan **2 terminal** secara bersamaan:
-
-#### Terminal 1: Jalankan Vite Dev Server (Frontend)
-
-Jalankan Vite untuk compile dan hot reload asset frontend:
-
-`ash
 npm run dev
-`
 
-Vite akan berjalan dan menunggu perubahan file CSS/JS. **Biarkan terminal ini tetap berjalan.**
 
-#### Terminal 2: Jalankan Laravel Server (Backend)
+Jalankan server Laravel:
 
-Buka terminal baru dan jalankan server Laravel:
-
-`ash
 php artisan serve
-`
 
-Server Laravel akan berjalan di: **http://127.0.0.1:8000**
 
-**Atau** jika ingin menggunakan port lain:
+Akses aplikasi di browser:
 
-`ash
-php artisan serve --port=8001
-`
-
-### Production Mode
-
-Jika ingin build untuk production:
-
-`ash
-npm run build
-php artisan serve
-`
-
----
-
-## ðŸ“ Struktur Folder Penting
-
-`
-wesclic_coffeshop/
-â”œâ”€â”€ app/
-â”‚   â”œâ”€â”€ Http/Controllers/     # Controller (web & admin)
-â”‚   â”‚   â””â”€â”€ Admin/            # Controller panel admin
-â”‚   â”œâ”€â”€ Models/               # Model Eloquent
-â”‚   â”œâ”€â”€ Services/             # Business logic (ImageService, DashboardChartService, dll)
-â”‚   â”œâ”€â”€ Repositories/         # Data access (Repository pattern)
-â”‚   â””â”€â”€ Exports/              # Export Excel/PDF
-â”œâ”€â”€ config/                   # Konfigurasi (database, session, filesystems, dll)
-â”œâ”€â”€ database/
-â”‚   â”œâ”€â”€ migrations/          # Migrasi tabel
-â”‚   â””â”€â”€ seeders/             # Seeder data awal
-â”œâ”€â”€ public/                  # Entry point (index.php), aset, upload
-â”œâ”€â”€ resources/
-â”‚   â”œâ”€â”€ views/               # Blade template
-â”‚   â”‚   â”œâ”€â”€ layouts/         # Layout utama
-â”‚   â”‚   â”œâ”€â”€ pages/           # Halaman publik (home, menu, contact, order status, dll)
-â”‚   â”‚   â”œâ”€â”€ admin/           # View panel admin (dashboard, CRUD)
-â”‚   â”‚   â””â”€â”€ components/      # Komponen reusable
-â”‚   â”œâ”€â”€ css/                 # File CSS
-â”‚   â””â”€â”€ js/                  # File JavaScript
-â”œâ”€â”€ routes/
-â”‚   â”œâ”€â”€ web.php              # Route publik
-â”‚   â””â”€â”€ admin.php            # Route admin (/admin/...)
-â”œâ”€â”€ storage/                 # Log, cache, session, upload
-â””â”€â”€ Setup/                   # Dokumentasi struktur & design pattern (MD)
-`
-
----
-
-## ðŸŒ Route Utama
-
-| URL | Keterangan |
-|-----|------------|
-| / | Halaman Beranda |
-| /menu | Menu & Kategori |
-| /menu/{id} | Detail Menu |
-| /about | Tentang Kami & Tim |
-| /contact | Kontak & Peta Lokasi |
-| /cart | Keranjang Belanja |
-| /payment | Checkout & Pembayaran |
-| /status | Cek Status Pesanan (tanpa login, pakai cookie) |
-| /orders/{order_code} | Detail Status Pesanan |
-| /gallery | Galeri Foto |
-| /admin/login | Login Admin |
-| /admin/dashboard | Dashboard Admin (grafik penjualan & pendapatan) |
-| /admin/menus | CRUD Menu |
-| /admin/orders | Daftar Pesanan |
-| /admin/categories | CRUD Kategori |
-| /admin/customers | Daftar Pelanggan |
-| /admin/users | CRUD User Admin |
-
----
-
-## ðŸ‘¨â€ðŸ’¼ Panel Admin
-
-### Login Admin
-
-- **URL**: /admin/login
-- **Default Credentials** (dari AdminSeeder):
-  - **Email**: dmin@wesclic.com
-  - **Password**: password
-
-**Catatan:** Setelah menjalankan php artisan migrate:fresh --seed, user admin default akan dibuat. Silakan cek file database/seeders/AdminSeeder.php untuk detail lebih lanjut.
-
-### Fitur Panel Admin
-
-- **Dashboard**: 
-  - Statistik penjualan
-  - Grafik penjualan (14 hari & 6 bulan)
-  - Grafik pendapatan (14 hari & 6 bulan)
-  - Kartu total/hari ini/bulan ini pendapatan
-
-- **CRUD**:
-  - Kategori (Coffee, Tea, Pastry, Dessert)
-  - Menu (upload gambar PNG/JPG/SVG)
-  - User Admin
-  - Customer
-
-- **Orders**: 
-  - Daftar pesanan
-  - Ubah status pesanan
-  - Detail pesanan
-
-- **Export**: 
-  - Excel (.xlsx) pesanan
-  - PDF pesanan
-
-- **Settings**: 
-  - Pengaturan toko (nama, alamat, telepon, peta)
-
----
-
-## ðŸŽ¨ Design Pattern yang Dipakai
-
-- **Repository Pattern**: Akses data terpusat (MenuRepository, CategoryRepository)
-- **Service Pattern**: Logika bisnis terpisah (ImageService, DashboardChartService, MenuService, PaymentGatewayService)
-- **Dependency Injection**: Controller menerima service/repository lewat constructor
-- **Route â†’ Controller â†’ View**: Struktur jelas; admin di outes/admin.php dan pp/Http/Controllers/Admin/
-
----
-
-## ðŸ“ Lokasi & Peta (Contact)
-
-Alamat yang ditampilkan dan di-tag di halaman Contact:
-
-- **Alamat**: 683W+6QR, Cobongan, Ngestiharjo, Kec. Kasihan, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55184
-- **Peta**: Embed OpenStreetMap + link "Buka di Google Maps" agar customer bisa melihat dan mengklik lokasi
-
----
-
-## ðŸ‘¥ Meet Our Team (About)
-
-Nama tim di halaman About:
-
-- **Alpha Pratama Wijaya** â€“ Head Barista  
-- **Gamma Estu Mahardika** â€“ Master Roaster  
-- **Beta Santoso Kusuma** â€“ Pastry Chef  
-
----
-
-## ðŸ”§ Troubleshooting
-
-### Error: "Class 'Vite' not found"
-
-Pastikan Anda sudah menjalankan 
-pm install dan 
-pm run dev atau 
-pm run build.
-
-### Error: "SQLSTATE[HY000] [2002] Connection refused"
-
-Pastikan konfigurasi database di .env sudah benar dan database server sudah berjalan.
-
-### Error: "The stream or file could not be opened"
-
-Pastikan folder storage/logs memiliki permission write. Jalankan:
-`ash
-chmod -R 775 storage bootstrap/cache
-`
-
-### Asset tidak muncul (CSS/JS tidak load)
-
-Pastikan Anda sudah menjalankan 
-pm run dev (development) atau 
-pm run build (production).
-
-### Port 8000 sudah digunakan
-
-Gunakan port lain:
-`ash
-php artisan serve --port=8001
-`
-
----
-
-## ðŸ“ Catatan Penting
-
-1. **Development Mode**: Selalu jalankan 
-pm run dev di terminal terpisah saat development untuk hot reload CSS/JS.
-
-2. **Production Mode**: Sebelum deploy, jalankan 
-pm run build untuk compile asset production.
-
-3. **Database**: Setelah migrate:fresh --seed, semua data lama akan dihapus dan diganti dengan data seeder.
-
-4. **Storage**: File upload disimpan di storage/app/public. Pastikan symbolic link sudah dibuat dengan php artisan storage:link.
-
-5. **Environment**: Jangan commit file .env ke repository. Gunakan .env.example sebagai template.
-
----
-
-## ðŸ“„ Lisensi
-
-MIT License
-
----
-
-## ðŸ‘¨â€ðŸ’» Kontributor
-
-- Alpha Pratama Wijaya
-- Gamma Estu Mahardika  
-- Beta Santoso Kusuma
-
----
-
-**Selamat coding! â˜•**
+http://127.0.0.1:8000

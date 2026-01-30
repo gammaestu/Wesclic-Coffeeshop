@@ -15,10 +15,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Seed Categories first
+        // Seed Categories first, then copy images, then seed menus, then settings
         $this->call([
             CategorySeeder::class,
+            MenuImageSeeder::class, // Copy images first before seeding menus
             MenuSeeder::class,
+            SettingsSeeder::class, // Set default map coordinates
             AdminSeeder::class,
         ]);
     }

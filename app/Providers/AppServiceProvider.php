@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Http\ViewComposers\CategoryComposer;
+use App\Http\ViewComposers\ContactMessageComposer;
 use App\Repositories\CategoryRepository;
 use App\Repositories\MenuRepository;
 use App\Services\MenuService;
@@ -33,5 +34,8 @@ class AppServiceProvider extends ServiceProvider
     {
         // Register view composers
         View::composer(['components.navbar', 'pages.menu'], CategoryComposer::class);
+        
+        // Share jumlah pesan baru ke sidebar admin
+        View::composer('admin.components.sidebar', ContactMessageComposer::class);
     }
 }

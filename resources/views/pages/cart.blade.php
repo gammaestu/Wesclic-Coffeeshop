@@ -102,10 +102,22 @@
         cartItemsList.innerHTML = cart.map((item, index) => `
             <div class="flex items-center justify-between p-4 border border-[#A3B18A]/20 rounded-lg">
                 <div class="flex items-center space-x-4 flex-1">
-                    <div class="w-16 h-16 bg-gradient-to-br from-[#A3B18A] to-[#B08968] rounded-lg flex items-center justify-center flex-shrink-0">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
-                        </svg>
+                    <div class="w-16 h-16 bg-gradient-to-br from-[#A3B18A] to-[#B08968] rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden relative">
+                        ${item.image ? `
+                            <img src="${item.image.startsWith('http') || item.image.startsWith('/') ? item.image : '/' + item.image}" 
+                                 alt="${item.name}" 
+                                 class="w-full h-full object-cover"
+                                 onerror="this.style.display='none'; this.parentElement.querySelector('.placeholder-icon').style.display='flex';">
+                            <div class="placeholder-icon absolute inset-0 w-full h-full items-center justify-center hidden">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                                </svg>
+                            </div>
+                        ` : `
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                            </svg>
+                        `}
                     </div>
                     <div class="flex-1">
                         <h3 class="font-bold text-[#3A3A3A]">${item.name}</h3>

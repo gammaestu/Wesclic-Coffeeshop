@@ -39,6 +39,7 @@ class Setting extends Model
 
     /**
      * Get shop settings (singleton pattern)
+     * Default latitude dan longitude untuk peta terintegrasi: -7.79687506856175, 110.34691469023313
      */
     public static function getShopSettings(): self
     {
@@ -50,8 +51,8 @@ class Setting extends Model
                 'shop_phone' => '',
                 'shop_logo' => null,
                 'tax' => 0,
-                'map_lat' => null,
-                'map_lng' => null,
+                'map_lat' => -7.79687506856175,
+                'map_lng' => 110.34691469023313,
                 'map_place_query' => null,
             ]
         );

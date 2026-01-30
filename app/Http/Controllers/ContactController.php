@@ -3,11 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Setting;
+use App\Services\ContactMessageService;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ContactController extends Controller
 {
+    public function __construct(
+        protected ContactMessageService $contactMessageService
+    ) {
+    }
+
     /**
      * Display the contact page.
      */
@@ -29,9 +35,9 @@ class ContactController extends Controller
             'message' => 'required|string|max:1000',
         ]);
 
-        // Here you would typically send an email or save to database
-        // For now, we'll just return a success message
+        // Simpan ke database agar bisa dibaca dan dibalas dari panel admin
+        $this->contactMessageService->storeFromRequest($request);
 
-        return back()->with('success', 'Thank you for your message! We will get back to you soon.');
+        return back()->with('success', 'Terima kasih, pesan Anda sudah terkirim. Admin akan membalas melalui email Anda.');
     }
 }

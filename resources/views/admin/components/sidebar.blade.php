@@ -58,6 +58,20 @@
                 <span class="font-medium">Orders</span>
             </a>
 
+            <a href="{{ route('admin.contact-messages.index') }}" class="flex items-center justify-between px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.contact-messages.*') ? 'bg-[#A3B18A] text-white' : 'text-[#F7F7F2]/70 hover:bg-[#F7F7F2]/10 hover:text-[#F7F7F2]' }}">
+                <div class="flex items-center space-x-3">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                    <span class="font-medium">Pesan Kontak</span>
+                </div>
+                @if(isset($newMessagesCount) && $newMessagesCount > 0)
+                    <span class="bg-red-500 text-white text-xs font-semibold px-2 py-0.5 rounded-full min-w-[20px] text-center">
+                        {{ $newMessagesCount > 99 ? '99+' : $newMessagesCount }}
+                    </span>
+                @endif
+            </a>
+
             <a href="{{ route('admin.profile.edit') }}" class="flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.profile.*') ? 'bg-[#A3B18A] text-white' : 'text-[#F7F7F2]/70 hover:bg-[#F7F7F2]/10 hover:text-[#F7F7F2]' }}">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0z"/>

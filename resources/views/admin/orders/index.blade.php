@@ -59,7 +59,7 @@
                         <tr class="border-b border-[#A3B18A]/10 hover:bg-[#F7F7F2] transition-colors">
                             <td class="py-3 px-4 text-[#3A3A3A] font-medium">{{ $order->order_code }}</td>
                             <td class="py-3 px-4 text-[#3A3A3A]/80">{{ $order->customer?->name ?? '-' }}</td>
-                            <td class="py-3 px-4 text-[#3A3A3A] font-semibold">${{ number_format($order->total_price, 2) }}</td>
+                            <td class="py-3 px-4 text-[#3A3A3A] font-semibold">Rp {{ number_format($order->total_price, 0, ',', '.') }}</td>
                             <td class="py-3 px-4">
                                 <span class="px-2 py-1 bg-[#A3B18A]/20 text-[#A3B18A] rounded-full text-xs font-medium">{{ $order->status }}</span>
                             </td>

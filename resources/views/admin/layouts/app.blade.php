@@ -30,7 +30,7 @@
             @include('admin.components.navbar')
             
             <!-- Page Content -->
-            <main class="p-6 w-full">
+            <main class="p-6 w-full animate-fade-in">
             <!-- Flash Messages -->
             @if(session('success'))
                 <div class="mb-4 bg-[#A3B18A] text-white px-4 py-3 rounded-lg flex items-center justify-between">

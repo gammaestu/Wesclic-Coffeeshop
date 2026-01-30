@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Menu;
 use App\Repositories\MenuRepository;
+use App\Services\ImageService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -13,7 +14,8 @@ use Illuminate\View\View;
 class MenuController extends Controller
 {
     public function __construct(
-        protected MenuRepository $menuRepository
+        protected MenuRepository $menuRepository,
+        protected ImageService $imageService
     ) {}
 
     /**
@@ -71,9 +73,23 @@ class MenuController extends Controller
             'price' => ['required', 'numeric', 'min:0'],
             'stock' => ['required', 'integer', 'min:0'],
             'image' => ['nullable', 'string', 'max:255'],
+            'image_file' => ['nullable', 'file', 'mimes:png,jpg,jpeg,svg', 'max:2048'],
             'status' => ['required', 'in:tersedia,habis'],
         ]);
 
+        $imagePath = $validated['image'] ?? null;
+
+        if ($request->hasFile('image_file')) {
+            $file = $request->file('image_file');
+            $errors = $this->imageService->validate($file);
+            if (! empty($errors)) {
+                return back()->withErrors(['image_file' => implode(' ', $errors)])->withInput();
+            }
+            $imagePath = $this->imageService->storeMenuImage($file, 'menu');
+        }
+
+        $validated['image'] = $imagePath;
+        unset($validated['image_file']);
         Menu::create($validated);
 
         $this->menuRepository->clearCache();
@@ -107,9 +123,24 @@ class MenuController extends Controller
             'price' => ['required', 'numeric', 'min:0'],
             'stock' => ['required', 'integer', 'min:0'],
             'image' => ['nullable', 'string', 'max:255'],
+            'image_file' => ['nullable', 'file', 'mimes:png,jpg,jpeg,svg', 'max:2048'],
             'status' => ['required', 'in:tersedia,habis'],
         ]);
 
+        $imagePath = $validated['image'] ?? $menu->image;
+
+        if ($request->hasFile('image_file')) {
+            $file = $request->file('image_file');
+            $errors = $this->imageService->validate($file);
+            if (! empty($errors)) {
+                return back()->withErrors(['image_file' => implode(' ', $errors)])->withInput();
+            }
+            $this->imageService->deleteByPath($menu->image);
+            $imagePath = $this->imageService->storeMenuImage($file, 'menu');
+        }
+
+        $validated['image'] = $imagePath;
+        unset($validated['image_file']);
         $menu->update($validated);
 
         $this->menuRepository->clearCache();

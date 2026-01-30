@@ -5,7 +5,7 @@
 
 @section('content')
     <div class="bg-white rounded-xl shadow-md p-6 max-w-2xl">
-        <form action="{{ route('admin.menus.store') }}" method="POST" class="space-y-6">
+        <form action="{{ route('admin.menus.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
             @csrf
 
             <div>
@@ -60,19 +60,19 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <label for="price" class="block text-sm font-semibold text-[#3A3A3A] mb-2">Price <span class="text-red-500">*</span></label>
+                    <label for="price" class="block text-sm font-semibold text-[#3A3A3A] mb-2">Harga (Rupiah) <span class="text-red-500">*</span></label>
                     <div class="relative">
-                        <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#3A3A3A]/70">$</span>
+                        <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#3A3A3A]/70">Rp</span>
                         <input 
                             type="number" 
                             id="price" 
                             name="price" 
                             value="{{ old('price') }}"
-                            step="0.01"
+                            step="1"
                             min="0"
                             required 
-                            class="w-full pl-8 pr-4 py-3 border border-[#A3B18A]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A3B18A] focus:border-transparent @error('price') border-red-500 @enderror"
-                            placeholder="0.00"
+                            class="w-full pl-12 pr-4 py-3 border border-[#A3B18A]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A3B18A] focus:border-transparent @error('price') border-red-500 @enderror"
+                            placeholder="25000"
                         >
                     </div>
                     @error('price')
@@ -99,7 +99,21 @@
             </div>
 
             <div>
-                <label for="image" class="block text-sm font-semibold text-[#3A3A3A] mb-2">Image Path</label>
+                <label for="image_file" class="block text-sm font-semibold text-[#3A3A3A] mb-2">Gambar Menu (PNG / JPG / SVG)</label>
+                <input 
+                    type="file" 
+                    id="image_file" 
+                    name="image_file" 
+                    accept=".png,.jpg,.jpeg,.svg,image/png,image/jpeg,image/svg+xml"
+                    class="w-full px-4 py-3 border border-[#A3B18A]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A3B18A] focus:border-transparent file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-[#A3B18A]/20 file:text-[#3A3A3A] file:font-semibold @error('image_file') border-red-500 @enderror"
+                >
+                <p class="mt-1 text-xs text-[#3A3A3A]/70">Upload PNG, JPG, atau SVG (maks. 2MB). Kosongkan jika pakai path manual di bawah.</p>
+                @error('image_file')
+                    <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                @enderror
+            </div>
+            <div>
+                <label for="image" class="block text-sm font-semibold text-[#3A3A3A] mb-2">Atau Path Gambar (opsional)</label>
                 <input 
                     type="text" 
                     id="image" 
@@ -108,7 +122,7 @@
                     class="w-full px-4 py-3 border border-[#A3B18A]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A3B18A] focus:border-transparent @error('image') border-red-500 @enderror"
                     placeholder="images/logos/menu-espresso.svg"
                 >
-                <p class="mt-1 text-xs text-[#3A3A3A]/70">Path to image file (e.g., images/logos/menu-espresso.svg)</p>
+                <p class="mt-1 text-xs text-[#3A3A3A]/70">Path manual jika tidak upload file (contoh: images/logos/menu-espresso.svg)</p>
                 @error('image')
                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                 @enderror

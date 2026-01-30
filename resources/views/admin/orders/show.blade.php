@@ -14,7 +14,7 @@
                 </div>
                 <div class="text-right">
                     <div class="text-sm text-[#3A3A3A]/70">Total</div>
-                    <div class="text-2xl font-bold text-[#B08968]">${{ number_format($order->total_price, 2) }}</div>
+                    <div class="text-2xl font-bold text-[#B08968]">Rp {{ number_format($order->total_price, 0, ',', '.') }}</div>
                 </div>
             </div>
         </div>
@@ -36,9 +36,9 @@
                     <div class="flex items-center justify-between p-4 border border-[#A3B18A]/20 rounded-lg">
                         <div>
                             <div class="font-semibold text-[#3A3A3A]">{{ $item->menu?->name ?? 'Menu item' }}</div>
-                            <div class="text-sm text-[#3A3A3A]/70">{{ $item->quantity }} x ${{ number_format($item->price, 2) }}</div>
+                            <div class="text-sm text-[#3A3A3A]/70">{{ $item->quantity }} x Rp {{ number_format($item->price, 0, ',', '.') }}</div>
                         </div>
-                        <div class="font-bold text-[#B08968]">${{ number_format($item->subtotal, 2) }}</div>
+                        <div class="font-bold text-[#B08968]">Rp {{ number_format($item->subtotal, 0, ',', '.') }}</div>
                     </div>
                 @endforeach
             </div>

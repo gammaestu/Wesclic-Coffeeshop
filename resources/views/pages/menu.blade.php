@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('title', 'Menu')
-@section('description', 'Browse our complete menu of premium coffee, teas, and pastries')
+@section('description', 'Jelajahi menu lengkap kami yang berisi kopi premium, teh, dan pastry')
 
 @section('content')
     {{-- Page Header --}}
-    <section class="bg-gradient-to-r from-[#A3B18A] to-[#B08968] text-white py-16">
+    <section class="bg-gradient-to-r from-[#A3B18A] to-[#B08968] text-white py-16 animate-fade-in">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-5xl font-bold mb-4 font-serif">Our Menu</h1>
-            <p class="text-xl text-white/90">Discover our selection of premium beverages and pastries</p>
+            <h1 class="text-5xl font-bold mb-4 font-serif">Menu Kami</h1>
+            <p class="text-xl text-white/90">Temukan pilihan minuman premium dan pastry kami</p>
         </div>
     </section>
     
@@ -17,7 +17,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-wrap justify-center gap-4">
                 <a href="{{ route('menu') }}" class="menu-filter {{ !$selectedCategory ? 'active' : '' }} px-6 py-2 {{ !$selectedCategory ? 'bg-[#A3B18A] text-white' : 'bg-white text-[#3A3A3A] hover:bg-[#A3B18A] hover:text-white' }} rounded-lg font-semibold transition-colors">
-                    All Items
+                    Semua Item
                 </a>
                 @foreach($categories as $category)
                     <a href="{{ route('menu', ['category' => strtolower($category->name)]) }}" 
@@ -32,24 +32,24 @@
     {{-- Menu Items --}}
     <section class="py-16 bg-[#F7F7F2]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div id="menu-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div id="menu-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 stagger-children">
                 @forelse($menus as $menu)
-                    <div class="menu-item" data-category="{{ strtolower($menu->category->name) }}">
+                    <div class="menu-item hover-lift" data-category="{{ strtolower($menu->category->name) }}">
                         @include('components.product-card', [
                             'id' => $menu->id,
                             'name' => $menu->name,
                             'price' => $menu->price,
                             'description' => $menu->description,
                             'category' => $menu->category->name,
-                            'image' => $menu->image ? asset($menu->image) : null,
-                            'badge' => $menu->stock < 10 ? 'Limited' : null,
+                            'image' => $menu->image_url,
+                            'badge' => $menu->stock < 10 ? 'Terbatas' : null,
                         ])
                     </div>
                 @empty
                     <div class="col-span-3 text-center py-12">
-                        <p class="text-xl text-[#3A3A3A]/70">No items available in this category.</p>
+                        <p class="text-xl text-[#3A3A3A]/70">Tidak ada item yang tersedia di kategori ini.</p>
                         <a href="{{ route('menu') }}" class="inline-block mt-4 bg-[#A3B18A] hover:bg-[#8FA075] text-white px-6 py-3 rounded-lg font-semibold transition-colors">
-                            View All Items
+                            Lihat Semua Item
                         </a>
                     </div>
                 @endforelse

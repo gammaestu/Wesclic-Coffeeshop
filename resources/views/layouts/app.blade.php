@@ -22,7 +22,7 @@
     @include('components.navbar')
     
     <!-- Main Content -->
-    <main class="min-h-screen">
+    <main class="min-h-screen animate-fade-in">
         @yield('content')
     </main>
     

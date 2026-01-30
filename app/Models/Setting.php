@@ -20,6 +20,9 @@ class Setting extends Model
         'shop_phone',
         'shop_logo',
         'tax',
+        'map_lat',
+        'map_lng',
+        'map_place_query',
     ];
 
     /**
@@ -47,6 +50,9 @@ class Setting extends Model
                 'shop_phone' => '',
                 'shop_logo' => null,
                 'tax' => 0,
+                'map_lat' => null,
+                'map_lng' => null,
+                'map_place_query' => null,
             ]
         );
     }
@@ -67,5 +73,29 @@ class Setting extends Model
 
         // Otherwise, return the storage URL
         return asset('storage/' . $this->shop_logo);
+    }
+
+    /**
+     * URL embed peta (Google Maps) untuk iframe - koordinat tepat agar akurat.
+     */
+    public function getMapEmbedUrlAttribute(): string
+    {
+        if ($this->map_lat && $this->map_lng) {
+            return 'https://www.google.com/maps?q=' . (float) $this->map_lat . ',' . (float) $this->map_lng . '&output=embed';
+        }
+        $query = $this->map_place_query ?: $this->shop_address ?: 'Wesclic Coffee Shop, Cobongan Ngestiharjo Kasihan Bantul';
+        return 'https://www.google.com/maps?q=' . rawurlencode($query) . '&output=embed';
+    }
+
+    /**
+     * URL buka di Google Maps (link eksternal).
+     */
+    public function getMapLinkUrlAttribute(): string
+    {
+        if ($this->map_lat && $this->map_lng) {
+            return 'https://www.google.com/maps?q=' . (float) $this->map_lat . ',' . (float) $this->map_lng;
+        }
+        $query = $this->map_place_query ?: $this->shop_address ?: '683W+6QR Cobongan Ngestiharjo Kasihan Bantul 55184';
+        return 'https://www.google.com/maps/search/?api=1&query=' . rawurlencode($query);
     }
 }

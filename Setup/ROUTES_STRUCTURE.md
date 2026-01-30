@@ -67,7 +67,7 @@ Data: Static content (tidak perlu database)
 Route: GET /contact
 Controller: ContactController@index
 View: pages.contact
-Data: Static content
+Data: $settings (Setting::getShopSettings()) — untuk alamat, telepon, peta (map_embed_url, map_link_url)
 
 Route: POST /contact
 Controller: ContactController@store
@@ -77,8 +77,8 @@ Action: Validasi dan proses form submission
 **Flow GET:**
 1. User mengakses `/contact`
 2. Route memanggil `ContactController::index()`
-3. Controller return view `pages.contact`
-4. View menampilkan contact form dan info
+3. Controller mengambil Setting (getShopSettings) dan kirim ke view
+4. View menampilkan contact form, info (alamat/phone dari settings), dan peta Google Maps dari $settings->map_embed_url (koordinat/place dari Admin Settings)
 
 **Flow POST:**
 1. User submit contact form
@@ -130,15 +130,14 @@ View: pages.status
 Route: GET /gallery
 Controller: GalleryController@index
 View: pages.gallery
-Data: Static images (starter)
+Data: $items (gambar dari Menu), $categories. Fallback: public/images/logos (menu-*.jpeg)
 ```
 
 **Flow:**
-1. User mengakses `/cart`
-2. Route memanggil `CartController::index()`
-3. Controller return view `pages.cart`
-4. View menggunakan JavaScript untuk load cart dari localStorage
-5. View menampilkan items, quantity controls, dan order summary
+1. User mengakses `/gallery`
+2. Route memanggil `GalleryController@index()`
+3. Controller mengambil Menu (tersedia, punya image) + category; fallback ke images/logos jika kosong
+4. View menampilkan filter kategori, grid card, lightbox
 
 ---
 

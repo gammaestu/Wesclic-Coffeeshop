@@ -16,7 +16,7 @@
                     <h1 class="text-4xl md:text-5xl font-bold font-serif">{{ $menu->name }}</h1>
                     <p class="text-white/90 mt-3">{{ $menu->category?->name }}</p>
                 </div>
-                <div class="text-3xl font-bold">${{ number_format($menu->price, 2) }}</div>
+                <div class="text-3xl font-bold">Rp {{ number_format($menu->price, 0, ',', '.') }}</div>
             </div>
         </div>
     </section>
@@ -38,21 +38,21 @@
 
                 <div>
                     <div class="bg-white rounded-2xl shadow-lg p-8">
-                        <h2 class="text-2xl font-bold text-[#3A3A3A] font-serif mb-3">Description</h2>
+                        <h2 class="text-2xl font-bold text-[#3A3A3A] font-serif mb-3">Deskripsi</h2>
                         <p class="text-[#3A3A3A]/70 leading-relaxed mb-6">
-                            {{ $menu->description ?? 'No description available.' }}
+                            {{ $menu->description ?? 'Tidak ada deskripsi tersedia.' }}
                         </p>
 
                         <div class="flex items-center justify-between p-4 rounded-xl bg-[#F7F7F2] border border-[#A3B18A]/20 mb-6">
                             <div>
-                                <div class="text-sm text-[#3A3A3A]/60">Availability</div>
+                                <div class="text-sm text-[#3A3A3A]/60">Ketersediaan</div>
                                 @if($menu->isAvailable())
-                                    <div class="font-semibold text-green-700">Available (Stock: {{ $menu->stock }})</div>
+                                    <div class="font-semibold text-green-700">Tersedia (Stok: {{ $menu->stock }})</div>
                                 @else
-                                    <div class="font-semibold text-red-600">Out of Stock</div>
+                                    <div class="font-semibold text-red-600">Habis</div>
                                 @endif
                             </div>
-                            <div class="text-xl font-bold text-[#B08968]">${{ number_format($menu->price, 2) }}</div>
+                            <div class="text-xl font-bold text-[#B08968]">Rp {{ number_format($menu->price, 0, ',', '.') }}</div>
                         </div>
 
                         <button
@@ -60,15 +60,15 @@
                             class="w-full bg-[#A3B18A] hover:bg-[#8FA075] text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                             {{ $menu->isAvailable() ? '' : 'disabled' }}
                         >
-                            Add to Cart
+                            Tambah ke Keranjang
                         </button>
 
                         <div class="mt-4 flex gap-3">
                             <a href="{{ route('cart') }}" class="flex-1 text-center bg-[#B08968] hover:bg-[#D4A373] text-white font-semibold py-3 px-6 rounded-lg transition-colors">
-                                Go to Cart
+                                Lihat Keranjang
                             </a>
                             <a href="{{ route('menu') }}" class="flex-1 text-center bg-[#F7F7F2] hover:bg-[#A3B18A]/10 text-[#3A3A3A] font-semibold py-3 px-6 rounded-lg transition-colors">
-                                Back
+                                Kembali
                             </a>
                         </div>
                     </div>

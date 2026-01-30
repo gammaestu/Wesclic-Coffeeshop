@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class ContactController extends Controller
 {
     /**
      * Display the contact page.
      */
-    public function index()
+    public function index(): View
     {
-        return view('pages.contact');
+        $settings = Setting::getShopSettings();
+        return view('pages.contact', compact('settings'));
     }
 
     /**

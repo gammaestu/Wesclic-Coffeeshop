@@ -69,7 +69,7 @@
                                     {{ $menu->category->name }}
                                 </span>
                             </td>
-                            <td class="py-3 px-4 text-[#3A3A3A] font-semibold">${{ number_format($menu->price, 2) }}</td>
+                            <td class="py-3 px-4 text-[#3A3A3A] font-semibold">Rp {{ number_format($menu->price, 0, ',', '.') }}</td>
                             <td class="py-3 px-4 text-[#3A3A3A]">{{ $menu->stock }}</td>
                             <td class="py-3 px-4">
                                 @if($menu->status === 'tersedia')

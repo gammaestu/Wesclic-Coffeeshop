@@ -47,6 +47,10 @@ $menus = $this->menuRepository->getAvailable();
 - Easier to test
 - Single responsibility
 
+**Payment & Dashboard**:
+- **PaymentGatewayService**: Lazy initialization — Midtrans config hanya di-set saat `createSnapToken()` dipanggil, sehingga app tidak error jika `.env` belum set `MIDTRANS_SERVER_KEY`.
+- **DashboardChartService**: Pendapatan (revenue) hanya menghitung order dengan `payment_status = 'paid'`; order belum dibayar tidak masuk grafik pendapatan.
+
 **Example**:
 ```php
 // MenuService.php

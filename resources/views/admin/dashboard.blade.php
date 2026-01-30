@@ -65,7 +65,7 @@
         <div class="bg-white rounded-xl shadow-md p-6">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm text-[#3A3A3A]/70 mb-1">Total Orders</p>
+                    <p class="text-sm text-[#3A3A3A]/70 mb-1">Total Orders (Lunas)</p>
                     <p class="text-3xl font-bold text-[#3A3A3A]">{{ $stats['total_orders'] }}</p>
                 </div>
                 <div class="w-12 h-12 bg-[#D4A373]/20 rounded-lg flex items-center justify-center">
@@ -79,7 +79,7 @@
         <div class="bg-white rounded-xl shadow-md p-6">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm text-[#3A3A3A]/70 mb-1">Today's Orders</p>
+                    <p class="text-sm text-[#3A3A3A]/70 mb-1">Today's Orders (Lunas)</p>
                     <p class="text-3xl font-bold text-[#B08968]">{{ $stats['today_orders'] }}</p>
                 </div>
                 <div class="w-12 h-12 bg-[#B08968]/20 rounded-lg flex items-center justify-center">
@@ -87,6 +87,83 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
                 </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-md p-6 border border-amber-200">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-[#3A3A3A]/70 mb-1">Order Belum Bayar</p>
+                    <p class="text-2xl font-bold text-amber-600">{{ $stats['total_orders_unpaid'] ?? 0 }}</p>
+                    <p class="text-xs text-[#3A3A3A]/60 mt-1">Hari ini: {{ $stats['today_orders_unpaid'] ?? 0 }}</p>
+                </div>
+                <div class="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-md p-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-[#3A3A3A]/70 mb-1">Total Pendapatan</p>
+                    <p class="text-2xl font-bold text-[#3A3A3A]">Rp {{ number_format($stats['total_revenue'] ?? 0, 0, ',', '.') }}</p>
+                </div>
+                <div class="w-12 h-12 bg-[#A3B18A]/20 rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-[#A3B18A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-md p-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-[#3A3A3A]/70 mb-1">Pendapatan Hari Ini</p>
+                    <p class="text-2xl font-bold text-[#B08968]">Rp {{ number_format($stats['today_revenue'] ?? 0, 0, ',', '.') }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-md p-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-[#3A3A3A]/70 mb-1">Pendapatan Bulan Ini</p>
+                    <p class="text-2xl font-bold text-[#D4A373]">Rp {{ number_format($stats['month_revenue'] ?? 0, 0, ',', '.') }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grafik Penjualan & Pendapatan -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <div class="bg-white rounded-xl shadow-md p-6">
+            <h2 class="text-lg font-bold text-[#3A3A3A] mb-4">Grafik Penjualan (14 Hari Terakhir)</h2>
+            <div class="h-72">
+                <canvas id="chartSalesDay" height="280"></canvas>
+            </div>
+        </div>
+        <div class="bg-white rounded-xl shadow-md p-6">
+            <h2 class="text-lg font-bold text-[#3A3A3A] mb-4">Grafik Pendapatan (14 Hari Terakhir)</h2>
+            <div class="h-72">
+                <canvas id="chartRevenueDay" height="280"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <div class="bg-white rounded-xl shadow-md p-6">
+            <h2 class="text-lg font-bold text-[#3A3A3A] mb-4">Grafik Penjualan (6 Bulan Terakhir)</h2>
+            <div class="h-72">
+                <canvas id="chartSalesMonth" height="280"></canvas>
+            </div>
+        </div>
+        <div class="bg-white rounded-xl shadow-md p-6">
+            <h2 class="text-lg font-bold text-[#3A3A3A] mb-4">Grafik Pendapatan (6 Bulan Terakhir)</h2>
+            <div class="h-72">
+                <canvas id="chartRevenueMonth" height="280"></canvas>
             </div>
         </div>
     </div>
@@ -121,7 +198,7 @@
                                     {{ $menu->category->name }}
                                 </span>
                             </td>
-                            <td class="py-3 px-4 text-[#3A3A3A] font-semibold">${{ number_format($menu->price, 2) }}</td>
+                            <td class="py-3 px-4 text-[#3A3A3A] font-semibold">Rp {{ number_format($menu->price, 0, ',', '.') }}</td>
                             <td class="py-3 px-4 text-[#3A3A3A]">{{ $menu->stock }}</td>
                             <td class="py-3 px-4">
                                 @if($menu->status === 'tersedia')
@@ -148,3 +225,124 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const chartOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { display: false }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                grid: { color: 'rgba(163, 177, 138, 0.15)' },
+                ticks: { color: '#3A3A3A' }
+            },
+            x: {
+                grid: { display: false },
+                ticks: { color: '#3A3A3A', maxRotation: 45 }
+            }
+        }
+    };
+    const chartOptionsBar = { ...chartOptions, scales: { ...chartOptions.scales, y: { ...chartOptions.scales.y, ticks: { ...chartOptions.scales.y.ticks, stepSize: 1 } } } };
+
+    const salesDayLabels = @json($salesByDay['labels'] ?? []);
+    const salesDayData = @json($salesByDay['data'] ?? []);
+    if (document.getElementById('chartSalesDay')) {
+        new Chart(document.getElementById('chartSalesDay'), {
+            type: 'bar',
+            data: {
+                labels: salesDayLabels,
+                datasets: [{
+                    label: 'Jumlah Order',
+                    data: salesDayData,
+                    backgroundColor: 'rgba(163, 177, 138, 0.6)',
+                    borderColor: '#A3B18A',
+                    borderWidth: 1
+                }]
+            },
+            options: chartOptionsBar
+        });
+    }
+
+    const revenueDayLabels = @json($revenueByDay['labels'] ?? []);
+    const revenueDayData = @json($revenueByDay['data'] ?? []);
+    if (document.getElementById('chartRevenueDay')) {
+        new Chart(document.getElementById('chartRevenueDay'), {
+            type: 'line',
+            data: {
+                labels: revenueDayLabels,
+                datasets: [{
+                    label: 'Pendapatan (Rp)',
+                    data: revenueDayData,
+                    borderColor: '#B08968',
+                    backgroundColor: 'rgba(176, 137, 104, 0.2)',
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: chartOptions
+        });
+    }
+
+    const salesMonthLabels = @json($salesByMonth['labels'] ?? []);
+    const salesMonthData = @json($salesByMonth['data'] ?? []);
+    if (document.getElementById('chartSalesMonth')) {
+        new Chart(document.getElementById('chartSalesMonth'), {
+            type: 'bar',
+            data: {
+                labels: salesMonthLabels,
+                datasets: [{
+                    label: 'Jumlah Order',
+                    data: salesMonthData,
+                    backgroundColor: 'rgba(212, 163, 115, 0.6)',
+                    borderColor: '#D4A373',
+                    borderWidth: 1
+                }]
+            },
+            options: chartOptionsBar
+        });
+    }
+
+    const revenueMonthLabels = @json($revenueByMonth['labels'] ?? []);
+    const revenueMonthData = @json($revenueByMonth['data'] ?? []);
+    if (document.getElementById('chartRevenueMonth')) {
+        new Chart(document.getElementById('chartRevenueMonth'), {
+            type: 'line',
+            data: {
+                labels: revenueMonthLabels,
+                datasets: [{
+                    label: 'Pendapatan (Rp)',
+                    data: revenueMonthData,
+                    borderColor: '#A3B18A',
+                    backgroundColor: 'rgba(163, 177, 138, 0.2)',
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                ...chartOptions,
+                scales: {
+                    ...chartOptions.scales,
+                    y: {
+                        ...chartOptions.scales.y,
+                        ticks: {
+                            ...chartOptions.scales.y.ticks,
+                            callback: function (value) {
+                                if (value >= 1000000) return (value / 1000000) + 'jt';
+                                if (value >= 1000) return (value / 1000) + 'k';
+                                return value;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+});
+</script>
+@endpush

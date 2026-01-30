@@ -89,12 +89,15 @@ class Menu extends Model
             return null;
         }
 
-        // If image is already a full URL, return it
         if (filter_var($this->image, FILTER_VALIDATE_URL)) {
             return $this->image;
         }
 
-        // Otherwise, return the storage URL
+        // Public path (e.g. images/logos/menu-xxx.png)
+        if (str_starts_with($this->image, 'images/')) {
+            return asset($this->image);
+        }
+
         return asset('storage/' . $this->image);
     }
 }

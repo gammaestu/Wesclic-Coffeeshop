@@ -26,6 +26,9 @@ class SettingsController extends Controller
             'shop_address' => ['nullable', 'string'],
             'shop_phone' => ['nullable', 'string', 'max:30'],
             'tax' => ['nullable', 'numeric', 'min:0'],
+            'map_lat' => ['nullable', 'numeric', 'between:-90,90'],
+            'map_lng' => ['nullable', 'numeric', 'between:-180,180'],
+            'map_place_query' => ['nullable', 'string', 'max:255'],
         ]);
 
         $settings->update([
@@ -33,6 +36,9 @@ class SettingsController extends Controller
             'shop_address' => $validated['shop_address'] ?? '',
             'shop_phone' => $validated['shop_phone'] ?? '',
             'tax' => $validated['tax'] ?? 0,
+            'map_lat' => $validated['map_lat'] ?? null,
+            'map_lng' => $validated['map_lng'] ?? null,
+            'map_place_query' => $validated['map_place_query'] ?? null,
         ]);
 
         return back()->with('success', 'Settings updated successfully.');

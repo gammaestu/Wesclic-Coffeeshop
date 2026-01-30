@@ -19,7 +19,7 @@ class OrdersExport implements FromCollection, WithHeadings, WithMapping
         return [
             'Order Code',
             'Customer',
-            'Total',
+            'Total (Rp)',
             'Status',
             'Payment Status',
             'Order Date',
@@ -31,7 +31,7 @@ class OrdersExport implements FromCollection, WithHeadings, WithMapping
         return [
             $order->order_code,
             $order->customer?->name ?? '-',
-            (string) $order->total_price,
+            'Rp ' . number_format($order->total_price, 0, ',', '.'),
             $order->status,
             $order->payment_status,
             optional($order->order_date)->format('Y-m-d H:i:s'),

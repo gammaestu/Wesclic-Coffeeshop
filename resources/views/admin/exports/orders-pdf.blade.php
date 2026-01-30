@@ -19,7 +19,7 @@
         <tr>
             <th>Order Code</th>
             <th>Customer</th>
-            <th>Total</th>
+            <th>Total (Rp)</th>
             <th>Status</th>
             <th>Payment</th>
             <th>Order Date</th>
@@ -30,7 +30,7 @@
             <tr>
                 <td>{{ $order->order_code }}</td>
                 <td>{{ $order->customer?->name ?? '-' }}</td>
-                <td>{{ number_format($order->total_price, 2) }}</td>
+                <td>Rp {{ number_format($order->total_price, 0, ',', '.') }}</td>
                 <td>{{ $order->status }}</td>
                 <td>{{ $order->payment_status }}</td>
                 <td>{{ optional($order->order_date)->format('Y-m-d H:i') }}</td>

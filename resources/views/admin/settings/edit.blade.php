@@ -32,7 +32,7 @@
 
             <div class="border-t border-[#A3B18A]/20 pt-6 mt-6">
                 <h3 class="text-lg font-semibold text-[#3A3A3A] mb-3">Peta (Lokasi Tepat)</h3>
-                <p class="text-sm text-[#3A3A3A]/70 mb-4">Isi koordinat atau nama tempat agar peta di halaman Contact menunjuk ke lokasi yang benar (bukan gudang/tempat lain).</p>
+                <p class="text-sm text-[#3A3A3A]/70 mb-4">Isi koordinat atau nama tempat agar peta di halaman Contact menunjuk ke lokasi yang benar.</p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm font-medium text-[#3A3A3A] mb-2">Latitude (contoh: -7.829123)</label>
